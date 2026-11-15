@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ÉLZARA LABEL — OFFICIAL APPLICATION CENTER</title>
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --wine: #5e1b2b;
+            --wine-light: #8a2a3e;
+            --wine-dark: #3a0f1a;
+            --text-main: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --border-color: #3a1a22;
+            --accent-glow: rgba(138, 42, 62, 0.4);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: var(--black);
+            color: var(--text-main);
+            font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
+            line-height: 1.7;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            background-image: radial-gradient(circle at 50% 0%, var(--wine-dark) 0%, var(--black) 70%);
+            min-height: 100vh;
+        }
+
+        /* === МЕНЮ НАВІГАЦІЇ === */
+        .topnav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 10px 15px;
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            overflow-x: auto;
+            white-space: nowrap;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+        }
+        .topnav::-webkit-scrollbar { height: 4px; }
+        .topnav::-webkit-scrollbar-thumb { background: var(--wine); border-radius: 4px; }
+        .topnav a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 8px 14px;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .topnav a:hover {
+            background: var(--wine-dark);
+            border-color: var(--wine);
+            color: #fff;
+        }
+        .topnav a .n { color: var(--wine-light); font-weight: 700; margin-right: 4px; }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 40px 45px;
+            box-shadow: 0 0 60px rgba(94, 27, 43, 0.3), inset 0 0 30px rgba(0,0,0,0.8);
+            margin: 70px 0 20px 0;
+        }
+
+        h1, h2, h3 { font-weight: 600; letter-spacing: 0.04em; color: #fff; }
+        h1 {
+            font-size: 2.8rem;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            background: linear-gradient(180deg, #ffffff 0%, #c0a0a8 80%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+            text-shadow: 0 0 30px var(--accent-glow);
+        }
+        .subtitle {
+            text-align: center;
+            color: var(--wine-light);
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+        h2 {
+            font-size: 1.6rem;
+            margin: 50px 0 20px 0;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border-left: 4px solid var(--wine);
+            padding-left: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            scroll-margin-top: 80px;
+        }
+        h2 .number { color: var(--wine-light); font-weight: 300; font-size: 1.2rem; margin-right: 10px; }
+        p { margin-bottom: 18px; color: var(--text-main); font-size: 1rem; text-align: justify; }
+        .accent { color: #e8c8d0; font-weight: 500; }
+        ul, ol { margin-left: 25px; margin-bottom: 25px; color: var(--text-main); }
+        li { margin-bottom: 10px; padding-left: 5px; }
+        li::marker { color: var(--wine-light); }
+        .divider {
+            text-align: center;
+            color: var(--wine);
+            letter-spacing: 5px;
+            font-size: 1.2rem;
+            margin: 40px 0;
+            opacity: 0.7;
+            user-select: none;
+        }
+        .card {
+            background: rgba(26, 26, 26, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 25px 30px;
+            margin: 25px 0;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover { border-color: var(--wine); box-shadow: 0 0 20px rgba(94, 27, 43, 0.4); }
+        .card h4 {
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        .card h4 .highlight { color: var(--wine-light); }
+
+        /* Анкети */
+        .question-list {
+            list-style: none;
+            counter-reset: question-counter;
+            margin-left: 0;
+        }
+        .question-list li {
+            counter-increment: question-counter;
+            margin-bottom: 12px;
+            padding: 10px 15px 10px 45px;
+            position: relative;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            border-left: 2px solid transparent;
+            transition: background 0.2s, border-left 0.2s;
+            font-size: 0.95rem;
+        }
+        .question-list li:hover { background: rgba(94, 27, 43, 0.1); border-left: 2px solid var(--wine-light); }
+        .question-list li::before {
+            content: counter(question-counter) ".";
+            position: absolute;
+            left: 15px;
+            color: var(--wine-light);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* Кнопка копіювання */
+        .copy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(145deg, var(--wine), var(--wine-dark));
+            color: #fff;
+            border: 1px solid var(--wine-light);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            cursor: pointer;
+            transition: all 0.25s;
+            margin: 10px 0 20px 0;
+            font-family: inherit;
+        }
+        .copy-btn:hover {
+            background: linear-gradient(145deg, var(--wine-light), var(--wine));
+            box-shadow: 0 0 20px var(--accent-glow);
+            transform: translateY(-2px);
+        }
+        .copy-btn:active { transform: translateY(0); }
+        .copy-btn.copied {
+            background: linear-gradient(145deg, #1e5e2b, #0f3a1a);
+            border-color: #3fa04f;
+        }
+
+        /* Етапи */
+        .steps { display: flex; flex-direction: column; gap: 15px; margin: 25px 0; }
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            background: rgba(26, 26, 26, 0.5);
+            padding: 18px 22px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s;
+        }
+        .step:hover { transform: translateX(5px); border-color: var(--wine); }
+        .step-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--wine-light);
+            line-height: 1;
+            min-width: 50px;
+            text-align: center;
+            opacity: 0.8;
+            font-family: 'Georgia', serif;
+        }
+        .step-content h5 {
+            color: #fff;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .step-content p { margin: 0; font-size: 0.95rem; color: var(--text-muted); text-align: left; }
+
+        /* FAQ */
+        .faq-item { margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
+        .faq-question {
+            color: #fff;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+            letter-spacing: 0.04em;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .faq-question::before {
+            content: "?";
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 24px; height: 24px;
+            background: var(--wine-dark);
+            color: var(--wine-light);
+            border-radius: 50%;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border: 1px solid var(--wine);
+            flex-shrink: 0;
+        }
+        .faq-answer { color: var(--text-main); padding-left: 34px; font-size: 0.95rem; }
+
+        /* Контакт */
+        .contact-block {
+            text-align: center;
+            background: linear-gradient(145deg, rgba(58, 15, 26, 0.6), rgba(10, 10, 10, 0.9));
+            border: 1px solid var(--wine);
+            border-radius: 20px;
+            padding: 35px 25px;
+            margin: 40px 0 30px 0;
+            box-shadow: 0 0 40px rgba(94, 27, 43, 0.3);
+        }
+        .contact-label {
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            font-size: 0.8rem;
+            color: var(--wine-light);
+            margin-bottom: 10px;
+        }
+        .contact-link {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 0.05em;
+            transition: color 0.3s, text-shadow 0.3s;
+            display: inline-block;
+            padding: 5px 0;
+            border-bottom: 2px solid transparent;
+        }
+        .contact-link:hover {
+            color: var(--wine-light);
+            text-shadow: 0 0 20px var(--accent-glow);
+            border-bottom: 2px solid var(--wine-light);
+        }
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8px;
+            margin-top: 20px;
+        }
+        .checklist li { padding-left: 30px; position: relative; color: var(--text-main); }
+        .checklist li::before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: var(--wine-light);
+            font-weight: 700;
+        }
+
+        /* Футер */
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+        }
+        .footer .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: #fff;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        .footer .tagline {
+            color: var(--wine-light);
+            font-size: 1.1rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        .footer p { color: var(--text-muted); font-size: 0.9rem; text-align: center; }
+
+        /* Адаптив */
+        @media (max-width: 700px) {
+            .container { padding: 25px 20px; margin-top: 65px; }
+            h1 { font-size: 1.9rem; letter-spacing: 0.08em; }
+            .subtitle { font-size: 0.7rem; letter-spacing: 0.15em; }
+            h2 { font-size: 1.3rem; padding-left: 12px; }
+            .contact-link { font-size: 1.4rem; }
+            .step { flex-direction: column; gap: 8px; }
+            .step-number { min-width: auto; text-align: left; font-size: 1.5rem; }
+            .question-list li { padding: 10px 10px 10px 40px; }
+            .question-list li::before { left: 12px; }
+            .topnav a { font-size: 0.7rem; padding: 6px 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- НАВІГАЦІЙНЕ МЕНЮ -->
+<nav class="topnav">
+    <a href="#sec01"><span class="n">01</span>Направления</a>
+    <a href="#sec02"><span class="n">02</span>Требования</a>
+    <a href="#sec03"><span class="n">03</span>Инструкция</a>
+    <a href="#sec04"><span class="n">04</span>Анкета артиста</a>
+    <a href="#sec05"><span class="n">05</span>Анкета сотрудника</a>
+    <a href="#sec06"><span class="n">06</span>Этапы отбора</a>
+    <a href="#sec07"><span class="n">07</span>Причины отказа</a>
+    <a href="#sec08"><span class="n">08</span>Частые вопросы</a>
+    <a href="#sec09"><span class="n">09</span>Отправка</a>
+</nav>
+
+<div class="container">
+    <h1>ÉLZARA LABEL</h1>
+    <div class="subtitle">Official Application Center</div>
+    <div style="text-align: center; margin-bottom: 30px; color: var(--wine-light); letter-spacing: 0.2em; font-size: 0.9rem;">── WELCOME TO ÉLZARA ──</div>
+
+    <p>Добро пожаловать в <span class="accent">ÉLZARA LABEL</span> — независимый entertainment-лейбл, созданный для объединения талантливых, целеустремлённых и творческих людей.</p>
+    <p>Наша компания стремится создавать собственные проекты, развивать артистов, формировать профессиональную команду и открывать новые возможности для каждого участника.</p>
+    <p>Мы ценим индивидуальность, ответственность, дисциплину и желание совершенствоваться. Для нас важно не только наличие навыков и опыта, но и готовность человека работать над собой, взаимодействовать с окружающими и быть частью единой команды.</p>
+    <p>На этой странице собрана вся необходимая информация для желающих присоединиться к ÉLZARA LABEL. Здесь вы найдёте правила подачи заявок, инструкции по заполнению, анкеты и информацию о процессе отбора.</p>
+
+    <div class="divider">━━━━━━━━━━━━━━━━━━━━</div>
+
+    <h2 id="sec01"><span class="number">01.</span> Application Directions<br><span style="font-size:0.8rem; color:var(--wine-light); letter-spacing:0.1em;">НАПРАВЛЕНИЯ</span></h2>
+    <p>В ÉLZARA LABEL предусмотрено два основных направления вступления.</p>
+    <div class="card">
+        <h4>1. <span class="highlight">ARTIST DEPARTMENT</span></h4>
+        <p>Артистическое направление предназначено для людей, желающих развиваться в качестве артистов, участвовать в групповых или сольных проектах, формировать собственный сценический образ и становиться частью музыкальной деятельности компании.</p>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0;">При рассмотрении артистических заявок учитываются индивидуальность, творческие способности, ответственность, активность и заинтересованность в развитии.</p>
+    </div>
+    <div class="card">
+        <h4>2. <span class="highlight">STAFF DEPARTMENT</span></h4>
+        <p>Рабочее направление предназначено для желающих присоединиться к внутренней команде лейбла и принимать участие в его организации и развитии.</p>
+        <p>Сотрудники могут заниматься административной деятельностью, оформлением, продвижением, координацией проектов и другими направлениями работы компании.</p>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0;">При рассмотрении заявок учитываются профессиональные навыки, опыт, организованность, коммуникабельность и готовность выполнять обязанности.</p>
+    </div>
+
+    <div class="divider">━━━━━━━━━━━━━━━━━━━━</div>
+
+    <h2 id="sec02"><span class="number">02.</span> Application Requirements<br><span style="font-size:0.8rem; color:var(--wine-light); letter-spacing:0.1em;">ОСНОВНЫЕ ТРЕБОВАНИЯ</span></h2>
+    <p>Перед отправкой заявки каждый кандидат обязан ознакомиться со следующими правилами:</p>
+    <ol>
+        <li>Анкета должна быть заполнена самостоятельно.</li>
+        <li>Все предоставленные сведения должны быть достоверными.</li>
+        <li>Ответы должны быть понятными, содержательными и соответствовать заданным вопросам.</li>
+        <li>Обязательные пункты не должны оставаться пустыми.</li>
+        <li>Не допускается копирование чужих анкет и ответов.</li>
+        <li>Кандидат должен осознавать ответственность, связанную с выбранным направлением.</li>
+        <li>Необходимо соблюдать уважительное отношение к руководству и другим участникам компании.</li>
+        <li>После отправки заявки следует дождаться ответа, не дублируя сообщение.</li>
+        <li>При возникновении обстоятельств, мешающих дальнейшей деятельности, необходимо предупредить руководство.</li>
+        <li>Подача заявки означает ознакомление с правилами приёма.</li>
+    </ol>
+    <p style="color: var(--wine-light); font-weight: 500;">Несоблюдение требований может стать причиной отклонения заявки.</p>
+
+    <div class="divider">━━━━━━━━━━━━━━━━━━━━</div>
+
+    <h2 id="sec03"><span class="number">03.</span> How to Complete<br><span style="font-size:0.8rem; color:var(--wine-light); letter-spacing:0.1em;">ИНСТРУКЦИЯ ПО ЗАПОЛНЕНИЮ</span></h2>
+    <p>Для правильного заполнения анкеты необходимо учитывать следующие рекомендации.</p>
+    <p><span class="accent">ПСЕВДОНИМ</span> — укажите имя, под которым планируете осуществлять деятельность в компании. Для артистов предпочтительно сценическое имя, для сотрудников — рабочий псевдоним.</p>
+    <p><span class="accent">ВОЗРАСТ</span> — указывайте настоящий возраст. Не изменяйте дату рождения и не предоставляйте ложные сведения.</p>
+    <p><span class="accent">ПРОТОТИП</span> — для артистов укажите выбранного прототипа, если это предусмотрено концепцией проекта.</p>
+    <p><span class="accent">ОПЫТ</span> — расскажите о предыдущей деятельности, участии в проектах и полученных навыках. Если опыта нет, укажите это.</p>
+    <p><span class="accent">НАВЫКИ</span> — перечислите свои реальные способности, которые могут пригодиться в выбранном направлении.</p>
+    <p><span class="accent">АКТИВНОСТЬ</span> — оценивайте собственные возможности объективно. Не стоит указывать максимальный показатель, если вы не сможете его поддерживать.</p>
+    <p><span class="accent">МОТИВАЦИЯ</span> — объясните, почему вас заинтересовала компания, какие цели вы ставите перед собой и чем можете быть полезны лейблу.</p>
+    <p><span class="accent">ПОРТФОЛИО</span> — если у вас имеются примеры работ, прикрепите ссылки на них в соответствующем пункте анкеты.</p>
+    <p style="color: var(--wine-light); font-style: italic;">Важно: не пытайтесь подстроить ответы под предполагаемые ожидания руководства. Намного ценнее честная и аргументированная информация.</p>
+
+    <div class="divider">━━━━━━━━━━━━━━━━━━━━</div>
+
+    <h2 id="sec04"><span class="number">04.</span> Artist Application<br><span style="font-size:0.8rem; color:var(--wine-light); letter-spacing:0.1em;">АНКЕТА АРТИСТА</span></h2>
+    <p>Данный раздел предназначен для кандидатов, желающих войти в артистический состав ÉLZARA LABEL.</p>
+    <p>Пожалуйста, ответьте на каждый пункт подробно.</p>
+
+    <!-- Кнопка копирования анкеты артиста -->
+    <button class="copy-btn" data-copy-target="artistForm">📋 Копировать анкету артиста</button>
+
+    <ol class="question-list" id="artistForm">
+        <li>Сценический псевдоним (ENG):</li>
+        <li>Настоящее имя (по желанию):</li>
+        <li>Возраст:</li>
+        <li>Дата рождения (DD.MM.YYYY):</li>
+        <li>Ваш прототип:</li>
+        <li>В каком направлении желаете развиваться (вокал, рэп, танцы, универсал):</li>
+        <li>Какой формат деятельности предпочитаете (соло / группа)?</li>
+               <li>Имеется ли у вас опыт участия в подобных проектах? Если да, расскажите о нём.</li>
+        <li>Какие творческие навыки и способности вы можете выделить?</li>
+        <li>Какие качества своего характера считаете наиболее сильными?</li>
+        <li>Какие навыки хотели бы развить или усовершенствовать?</li>
+        <li>Как оцениваете свою активность по шкале от 1 до 10?</li>
+        <li>Сколько времени готовы уделять деятельности лейбла?</li>
+        <li>Как относитесь к критике, конкуренции и необходимости работать над ошибками?</li>
+        <li>Как представляете своё развитие в составе ÉLZARA LABEL?</li>
+        <li>Почему мы должны выбрать именно вас и что вы готовы привнести в нашу компанию?</li>
+    </ol>
+
+    <div class="divider">━━━━━━━━━━━━━━━━━━━━</div>
+
+    <h2 id="sec05"><span class="number">05.</span> Staff Application<br><span style="font-size:0.8rem; color:var(--wine-light); letter-spacing:0.1em;">АНКЕТА СОТРУДНИКА</span></h2>
+    <p>Данный раздел предназначен для кандидатов, желающих стать частью административной, творческой или организационной команды ÉLZARA LABEL.</p>
+    <p>Пожалуйста, предоставьте максимально точную информацию о своих возможностях.</p>
+
+    <!-- Кнопка копирования анкеты сотрудника -->
+    <button class="copy-btn" data-copy-target="staffForm">📋 Копировать анкету сотрудника</button>
+
+    <ol class="question-list" id="staffForm">
+        <li>Ваше имя или рабочий псевдоним:</li>
+        <li>Возраст:</li>
+        <li>Дата рождения (DD.MM.YYYY):</li>
+        <li>На какую должность желаете подать заявку?</li>
+        <li>Имеется ли у вас опыт работы в подобных компаниях или проектах?</li>
+        <li>В каких проектах ранее состояли и какие обязанности выполняли?</li>
+        <li>Какими профессиональными навыками обладаете?</li>
+        <li>Имеется ли у вас портфолио или примеры предыдущих работ?</li>
+        <li>Какими программами, приложениями и инструментами владеете?</li>
+        <li>Как бы вы описали свой характер и стиль работы?</li>
+        <li>Какие качества делают вас подходящим кандидатом на выбранную должность?</li>
+        <li>Как оцениваете свою активность по шкале от 1 до 10?</li>
+        <li>Сколько времени в неделю готовы уделять работе в компании?</li>
+        <li>Как поступите, если не сможете выполнить поставленную задачу в установленный срок?</li>
+        <li>Как будете действовать при возникновении разногласий с коллегой или руководством?</li>
+        <li>Почему выбрали именно ÉLZARA LABEL и какой вклад готовы внести в развитие компании?</li>
+    </ol>
+
+    <div class="divider">━━━━━━━━━━━━━━━━━━━━</div>
+
+    <h2 id="sec06"><span class="number">06.</span> Selection Process<br><span style="font-size:0.8rem; color:var(--wine-light); letter-spacing:0.1em;">ЭТАПЫ ОТБОРА</span></h2>
+    <p>После отправки анкеты начинается процесс рассмотрения кандидатуры.</p>
+    <div class="steps">
+        <div class="step"><div class="step-number">I</div><div class="step-content"><h5>Application Received</h5><p>Руководство получает вашу заявку и проверяет её на наличие всех необходимых ответов.</p></div></div>
+        <div class="step"><div class="step-number">II</div><div class="step-content"><h5>Application Review</h5><p>Проводится оценка предоставленной информации, навыков, опыта и соответствия выбранному направлению.</p></div></div>
+        <div class="step"><div class="step-number">III</div><div class="step-content"><h5>Additional Questions</h5><p>При необходимости руководство может связаться с кандидатом для уточнения отдельных пунктов или получения дополнительной информации.</p></div></div>
+        <div class="step"><div class="step-number">IV</div><div class="step-content"><h5>Final Decision</h5><p>После завершения рассмотрения принимается решение о принятии или отклонении кандидатуры.</p></div></div>
+        <div class="step"><div class="step-number">V</div><div class="step-content"><h5>Confirmation</h5><p>Кандидат получает индивидуальный ответ с результатом рассмотрения и дальнейшими инструкциями.</p></div></div>
+    </div>
+    <p style="text-align: center; color: var(--wine-light); font-weight: 500; margin-top: 20px;">Стандартный срок рассмотрения заявки составляет до 3 дней с момента её получения.</p>
+
+    <div class="divider">━━━━━━━━━━━━━━━━━━━━</div>
+
+    <h2 id="sec07"><span class="number">07.</span> Reasons for Rejection<br><span style="font-size:0.8rem; color:var(--wine-light); letter-spacing:0.1em;">ПРИЧИНЫ ОТКАЗА</span></h2>
+    <p>Заявка может быть отклонена по следующим причинам:</p>
+    <ol>
+        <li>Неполное заполнение обязательных пунктов.</li>
+        <li>Предоставление недостоверной информации.</li>
+        <li>Отсутствие необходимых навыков для выбранной должности, если они обязательны.</li>
+        <li>Несоответствие установленным требованиям.</li>
+        <li>Недостаточная заинтересованность в деятельности компании.</li>
+        <li>Отсутствие понимания обязанностей выбранного направления.</li>
+        <li>Несерьёзное отношение к процессу отбора.</li>
+        <li>Нарушение правил подачи заявки.</li>
+    </ol>
+    <p style="color: var(--text-muted); font-style: italic;">Решение принимается индивидуально. Наличие отказа не является оценкой личных качеств человека.</p>
+
+    <div class="divider">━━━━━━━━━━━━━━━━━━━━</div>
+
+    <h2 id="sec08"><span class="number">08.</span> Frequently Asked Questions<br><span style="font-size:0.8rem; color:var(--wine-light); letter-spacing:0.1em;">ЧАСТЫЕ ВОПРОСЫ</span></h2>
+    <div class="faq-item"><div class="faq-question">Можно ли подать заявку без опыта?</div><div class="faq-answer">Да. Отсутствие опыта не всегда является препятствием. Мы также рассматриваем кандидатов, готовых учиться и развиваться.</div></div>
+    <div class="faq-item"><div class="faq-question">Можно ли подать две заявки?</div><div class="faq-answer">Да, если вы заинтересованы одновременно в артистическом и рабочем направлениях. Для каждого направления необходимо заполнить отдельную анкету.</div></div>
+    <div class="faq-item"><div class="faq-question">Обязательно ли иметь портфолио?</div><div class="faq-answer">Нет, если наличие портфолио не является обязательным условием выбранной должности.</div></div>
+    <div class="faq-item"><div class="faq-question">Можно ли изменить отправленную анкету?</div><div class="faq-answer">Для внесения изменений необходимо предварительно связаться с руководством.</div></div>
+    <div class="faq-item"><div class="faq-question">Что делать, если нет ответа?</div><div class="faq-answer">Дождитесь окончания установленного трёхдневного срока. Если ответа всё ещё нет, обратитесь к руководству.</div></div>
+    <div class="faq-item"><div class="faq-question">Можно ли отказаться от заявки?</div><div class="faq-answer">Да. Если ваши планы изменились, сообщите об этом руководству.</div></div>
+
+    <div class="divider">━━━━━━━━━━━━━━━━━━━━</div>
+
+    <h2 id="sec09"><span class="number">09.</span> Contact &amp; Submission<br><span style="font-size:0.8rem; color:var(--wine-light); letter-spacing:0.1em;">ОТПРАВКА ЗАЯВКИ</span></h2>
+    <p>После ознакомления со всеми разделами выберите подходящее направление и заполните соответствующую анкету.</p>
+    <p>Готовую заявку необходимо отправить официальному представителю ÉLZARA LABEL:</p>
+
+    <div class="contact-block">
+        <div class="contact-label">CONTACT</div>
+        <a href="https://t.me/ElzaraLab_agent" class="contact-link" target="_blank">@ElzaraLab_agent</a>
+        <div>
+            <button class="copy-btn" data-copy-text="@ElzaraLab_agent">📋 Копировать контакт</button>
+        </div>
+    </div>
+
+    <p>Перед отправкой убедитесь, что:</p>
+    <ul class="checklist">
+        <li>все обязательные пункты заполнены;</li>
+        <li>ответы соответствуют вопросам;</li>
+        <li>информация достоверна;</li>
+        <li>вы ознакомились с правилами компании.</li>
+    </ul>
+
+    <div class="divider">━━━━━━━━━━━━━━━━━━━━</div>
+
+    <div class="footer">
+        <div class="logo">ÉLZARA LABEL</div>
+        <div class="tagline">NEXT TO US — BE YOURSELF.</div>
+        <p>Мы верим, что каждый человек обладает собственным потенциалом. Возможно, именно ваше решение присоединиться к нам станет началом нового этапа.</p>
+        <p style="margin-top: 20px; letter-spacing: 0.1em; color: var(--wine-light); font-size: 0.8rem;">THANK YOU FOR YOUR INTEREST IN ÉLZARA.</p>
+    </div>
+</div>
+
+<script>
+document.querySelectorAll('.copy-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        var text = '';
+
+        if (btn.dataset.copyText) {
+            text = btn.dataset.copyText;
+        } else if (btn.dataset.copyTarget) {
+            var target = document.getElementById(btn.dataset.copyTarget);
+            if (target) {
+                var items = target.querySelectorAll('li');
+                var lines = [];
+                items.forEach(function(li, i) {
+                    lines.push((i + 1) + '. ' + li.textContent.trim());
+                });
+                text = lines.join('\n');
+            }
+        }
+
+        if (!text) return;
+
+        function showCopied() {
+            var original = btn.innerHTML;
+            btn.innerHTML = '✅ Скопировано!';
+            btn.classList.add('copied');
+            setTimeout(function() {
+                btn.innerHTML = original;
+                btn.classList.remove('copied');
+            }, 2000);
+        }
+
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(showCopied).catch(function() {
+                fallbackCopy(text, showCopied);
+            });
+        } else {
+            fallbackCopy(text, showCopied);
+        }
+    });
+});
+
+function fallbackCopy(text, callback) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+        document.execCommand('copy');
+        callback();
+    } catch (e) {
+        alert('Не вдалося скопіювати. Скопіюйте вручну.');
+    }
+    document.body.removeChild(ta);
+}
+</script>
+
+</body>
+</html>
